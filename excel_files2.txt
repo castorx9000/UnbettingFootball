@@ -1,0 +1,81 @@
+./Archivos de prueba o antiguos/auxiliar para triangling.xlsx
+./Archivos de prueba o antiguos/coaches_performances 1.xlsx
+./Archivos de prueba o antiguos/coaches_performances.xlsx
+./Archivos de prueba o antiguos/coaches_performances2.xlsx
+./Archivos de prueba o antiguos/coaches_performances3.xlsx
+./Archivos de prueba o antiguos/coaches_performances_v2.1.xlsx
+./Archivos de prueba o antiguos/coaches_performances_v2.xlsx
+./Archivos de prueba o antiguos/coaches_performances_v3.xlsx
+./Archivos de prueba o antiguos/coachs_profiles.xlsx
+./Archivos de prueba o antiguos/coachs_profiles_01-04-2021.xlsx
+./Archivos de prueba o antiguos/coachs_profiles_03-04-2021.xlsx
+./Archivos de prueba o antiguos/coachs_profiles_04-04-2021.xlsx
+./Archivos de prueba o antiguos/coachs_profiles_19-03-2021.xlsx
+./Archivos de prueba o antiguos/coachs_profiles_manipulado.xlsx
+./Archivos de prueba o antiguos/coachs_profiles_mas_Septien.xlsx
+./Archivos de prueba o antiguos/coachs_profiles_per_30_matches.xlsx
+./Archivos de prueba o antiguos/coachs_profiles_per_30_matches_01-04-2021.xlsx
+./Archivos de prueba o antiguos/coachs_profiles_per_30_matches_01-04-2021_Manipulado.xlsx
+./Archivos de prueba o antiguos/coachs_profiles_per_30_matches_03-04-2021 manipulado.xlsx
+./Archivos de prueba o antiguos/coachs_profiles_per_30_matches_03-04-2021.xlsx
+./Archivos de prueba o antiguos/coachs_profiles_per_30_matches_04-04-2021.xlsx
+./Archivos de prueba o antiguos/coachs_profiles_per_30_matches_04-04-2021_manipulado.xlsx
+./Archivos de prueba o antiguos/coachs_profiles_per_30_matches_MANIPULADO.xlsx
+./Archivos de prueba o antiguos/coachs_profiles_per_60_matches_03-04-2021.xlsx
+./Archivos de prueba o antiguos/coachs_profiles_per_60_matches_03-04-2021_manipulado.xlsx
+./Archivos de prueba o antiguos/European_Leagues.xlsx
+./Archivos de prueba o antiguos/MEX 03 05 2021.xlsx
+./Archivos de prueba o antiguos/MEX.xlsx
+./Archivos de prueba o antiguos/muestra.xlsx
+./Archivos de prueba o antiguos/reference_system.xlsx
+./Archivos de prueba o antiguos/Superliga_auxiliar.xlsx
+./Clubs_performances/Archivos viejos/Liga MX_2020-2021_agosto-diciembre_04-05-2021.xlsx
+./Clubs_performances/Archivos viejos/Liga MX_2020-2021_agosto-diciembre_05-05-2021.xlsx
+./Clubs_performances/Archivos viejos/Liga MX_2020-2021_agosto-mayo_04-05-2021.xlsx
+./Clubs_performances/Archivos viejos/Liga MX_2020-2021_agosto-mayo_05-05-2021.xlsx
+./Clubs_performances/Archivos viejos/Liga MX_2020-2021_enero-mayo_04-05-2021.xlsx
+./Clubs_performances/Archivos viejos/Liga MX_2020-2021_enero-mayo_04-05-2021_manipulado.xlsx
+./Clubs_performances/Archivos viejos/Liga MX_2020-2021_enero-mayo_05-05-2021.xlsx
+./Clubs_performances/Archivos viejos/Liga MX_2020-2021_enero-mayo_07-05-2021.xlsx
+./Clubs_performances/Bundesliga_2020-2021_03-06-2021.xlsx
+./Clubs_performances/Championship_2020-2021_03-06-2021.xlsx
+./Clubs_performances/EPL_2020-2021_03-06-2021.xlsx
+./Clubs_performances/Eredivisie_2020-2021_03-06-2021.xlsx
+./Clubs_performances/LaLiga_2020-2021_agosto-mayo_03-06-2021.xlsx
+./Clubs_performances/Liga MX_2020-2021_03-06-2021.xlsx
+./Clubs_performances/Liga MX_2020-2021_agosto-diciembre_07-05-2021.xlsx
+./Clubs_performances/Liga MX_2020-2021_agosto-mayo_07-05-2021.xlsx
+./Clubs_performances/Liga MX_2020-2021_enero-mayo_11-05-2021.xlsx
+./Clubs_performances/Ligue 1_2020-2021_03-06-2021.xlsx
+./Clubs_performances/Primeira Liga_2020-2021_03-06-2021.xlsx
+./Clubs_performances/Resumen en tabla goles esperados vs anotados Liga MX Guardianes 2021.xlsx
+./Clubs_performances/Serie A_2020-2021_03-06-2021.xlsx
+./Experimento/E0_2020_2021_january.xlsx
+./Football_MetriX/df_Euro_Leagues_manipulado.xlsx
+./Football_MetriX/seasons_simulations/performances/Experimento_triangulacion/Performance_2000_iterations.xlsx
+./Football_MetriX/seasons_simulations/positions/Season_2015-2016_E0/2015-2016_E0_position_1000_iterations.xlsx
+./Football_MetriX/seasons_simulations/positions/Season_2015-2016_E0/2015-2016_E0_position_1000_iterations_percentage.xlsx
+./Football_MetriX/seasons_simulations/positions/Season_2015-2016_E0/2015-2016_E0_position_1000_iterations_percentage2.xlsx
+./Football_MetriX/seasons_simulations/positions/Season_2015-2016_E0/2015-2016_E0_position_50000_iterations.xlsx
+./Leagues_exPPM.xlsx
+./Leagues_exPPM_5clubs.xlsx
+./Liga MX 2011 - 2020 - DTs.xlsx
+./Liga MX_2020-2021_enero-mayo_04-05-2021.xlsx
+./Ligas_csv/euro_data_2017-2018.xlsx
+./Ligas_csv/euro_data_2018-2019.xlsx
+./Ligas_csv/euro_data_2019-2020.xlsx
+./Matches_2000_2021.xlsx
+./Matches_2000_2021_test.xlsx
+./Matches_and_Coaches_2000_2021.xlsx
+./Muestra_de_DB/ARG.xlsx
+./Muestra_de_DB/Ligas/all euro data 2017-2018.xlsx
+./Muestra_de_DB/Ligas/all euro data 2018-2019.xlsx
+./Muestra_de_DB/Ligas/all euro data 2019-2020.xlsx
+./Muestra_de_DB/MEX (1).xlsx
+./Muestra_de_DB/MEX.xlsx
+./Muestra_de_DB/MX/EPL_2000_2020.xlsx
+./Muestra_de_DB/MX/Liga MX 2011 - 2020 - DTs.xlsx
+./Muestra_de_DB/MX/LigaMX_2011_2020.xlsx
+./reference_system_means.xlsx
+./TINL2020_player_list.xlsx
+./Triangling/Matches_2018-2019.xlsx
