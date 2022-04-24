@@ -69,7 +69,12 @@ def insert_escenarios(matches, metron):
 def profile_builder(coaches_list, metron):
 
     coach_df = pd.DataFrame()
+    auxiliar_df = pd. DataFrame()
+    teams_list = []
     
+    output = []
+    coach_output = []
+
     for coach in coaches_list:
 
         coach_df = pd.read_excel(f'Coaches/{coach}')
@@ -79,8 +84,134 @@ def profile_builder(coaches_list, metron):
         
         coach_df['Date'] = pd.to_datetime(coach_df['Date'])
         coach_df = coach_df.sort_values(by='Date')
+
+        rPoints, Points, xPoints = 0, 0, 0
+        rPointsH, PointsH, xPointsH = 0, 0, 0
+        rPointsA, PointsA, xPointsA = 0, 0, 0
+        Totals, rWins, Wins, xWins, rDraws, Draws, xDraws, rLosses, Losses, xLosses = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        rWinsH, WinsH, xWinsH, rDrawsH, DrawsH, xDrawsH, rLossesH, LossesH, xLossesH = 0, 0, 0, 0, 0, 0, 0 , 0, 0
+        rWinsA, WinsA, xWinsA, rDrawsA, DrawsA, xDrawsA, rLossesA, LossesA, xLossesA = 0, 0, 0, 0, 0, 0, 0 , 0, 0
+        matches, matchesH, matchesA = 0, 0, 0
+        rGSc, GSc, xGSc, rGAg, GAg, xGAg, GDf, xGDf = 0, 0, 0, 0, 0, 0, 0, 0
+        rGScA, rGAgA, GScA, GAgA, xGScA, xGAgA = 0, 0, 0, 0, 0, 0
+        rGScH, GScH, xGScH, rGAgH, GAgH, xGAgH, GDfH, xGDfH, GDfA, xGDfA = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+        teams_list = list(set(coach_df['Team'].tolist()))
         
-        coach_df.to_excel(f'Coaches_xValues/{coach}')
+        for team in teams_list:
+
+            auxiliar_df = coach_df[coach_df['HomeTeam'] == team]
+            Totals = auxiliar_df.sum(axis=0, skipna=True, numeric_only=None)
+            Record = Totals['FTR']
+
+            WinsH += Record.count('H')
+            xWinsH += Totals['ProbH']
+            DrawsH += Record.count('D')
+            xDrawsH += Totals['ProbD']
+            LossesH += Record.count('A')
+            xLossesH += Totals['ProbA']
+
+            GScH += Totals['FTHG']   
+            xGScH += Totals['xFTHG']
+            GAgH += Totals['FTAG']
+            xGAgH += Totals['xFTAG']
+
+            auxiliar_df = coach_df[coach_df['AwayTeam'] == team]
+            Totals = auxiliar_df.sum(axis=0, skipna=True, numeric_only=None)
+
+            WinsA += Totals['FTR'].count('A')
+            xWinsA += Totals['ProbA']
+            DrawsA += Totals['FTR'].count('D')
+            xDrawsA += Totals['ProbD']
+            LossesA += Totals['FTR'].count('H')
+            xLossesA += Totals['ProbH']
+
+            GScA += Totals['FTAG']
+            xGScA += Totals['xFTAG']
+            GAgA += Totals['FTHG']
+            xGAgA += Totals['xFTHG']
+
+        PointsH = WinsH*3 + DrawsH
+        xPointsH = xWinsH*3 + xDrawsH
+        PointsA = WinsA*3 + DrawsA
+        xPointsA = xWinsA*3 + xDrawsA
+
+        Points = PointsH + PointsA
+        xPoints = xPointsH + xPointsA
+        Wins = WinsH + WinsA
+        xWins = xWinsH + xWinsA
+        Draws = DrawsH + DrawsA
+        xDraws = xDrawsH + xDrawsA
+        Losses = LossesH + LossesA
+        xLosses = xLossesH + xLossesA
+
+        GSc = GScH + GScA
+        xGSc = xGScH + xGScA
+        GAg = GAgH + GAgA
+        xGAg = xGAgH + xGAgA
+
+        GDf = GSc - GAg
+        xGDf = xGSc - xGAg
+        GDfH = GScH - GAgH
+        xGDfH = xGScH - xGAgH
+        GDfA = GScA - GAgA
+        xGDfA = xGScA- xGAgA
+
+        rPoints = Points / xPoints
+        rPointsH = PointsH / xPointsH
+        rPointsA = PointsA / xPointsA
+        rWins = Wins / xWins
+        rWinsH = WinsH / xWinsH
+        rWinsA = WinsA / xWinsA
+        rDraws = Draws / xDraws
+        rDrawsH = DrawsH / xDrawsH
+        rDrawsA = DrawsA / xDrawsA
+        rLosses = Losses / xLosses
+        rLossesH = LossesH / xLossesH
+        rLossesA = LossesA / xLossesA
+            
+        rGSc = GSc / xGSc
+        rGAg = GAg / xGAg
+        rGScH = GScH / xGScH
+        rGAgH = GAgH / xGAgH
+        rGScA = GScA / xGScA
+        rGAgA = GAgA / xGAgA
+
+        matches = Wins + Draws + Losses
+        matchesH = WinsH + DrawsH + LossesH
+        matchesA = WinsA + DrawsA + LossesA
+
+        coach = coach.replace('.xlsx','')
+        
+        coach_output = [
+                coach, matches, matchesH, matchesA,
+                rPoints, Points, xPoints,
+                rPointsH, PointsH, xPointsH,
+                rPointsA, PointsA, xPointsA,
+                rWins, Wins, xWins, rDraws, Draws, xDraws, rLosses, Losses, xLosses,
+                rWinsH, WinsH, xWinsH, rDrawsH, DrawsH, xDrawsH, rLossesH, LossesH, xLossesH,
+                rWinsA, WinsA, xWinsA, rDrawsA, DrawsA, xDrawsA, rLossesA, LossesA, xLossesA,
+                rGSc, GSc, xGSc, rGAg, GAg, xGAg, GDf, xGDf,
+                rGScH, GScH, xGScH, rGAgH, GAgH, xGAgH, 
+                rGScA, rGAgA, GScA, GAgA, xGScA, xGAgA,
+                GDfH, xGDfH, GDfA, xGDfA
+            ]
+
+        output.append(coach_output)
+
+        coaches_results_df = pd.DataFrame(output, columns=[
+            'Coach', 'matches', 'matchesH', 'matchesA',
+            'rPoints','Points','xPoints','rPointsH','PointsH','xPointsH','rPointsA','PointsA','xPointsA',
+            'rWins','Wins', 'xWins', 'rDraws', 'Draws', 'xDraws', 'rLosses', 'Losses', 'xLosses', 
+            'rWinsH', 'WinsH', 'xWinsH', 'rDrawsH', 'DrawsH', 'xDrawsH', 'rLossesH', 'LossesH', 'xLossesH', 
+            'rWinsA', 'WinsA', 'xWinsA', 'rDrawsA', 'DrawsA', 'xDrawsA', 'rLossesA', 'LossesA', 'xLossesA', 
+            'rGSc', 'GSc', 'xGSc', 'rGAg', 'GAg', 'xGAg', 'GDf', 'xGDf',
+            'rGScH', 'GScH', 'xGScH', 'rGAgH', 'GAgH', 'xGAgH', 
+            'rGScA', 'rGAgA', 'GScA', 'GAgA', 'xGScA', 'xGAgA', 
+            'GDfH', 'xGDfH', 'GDfA', 'xGDfA'])
+
+        print(coaches_results_df)
+    coaches_results_df.to_excel(f'Coaches_xValues/coaches_results.xlsx', index=False, sheet_name='coaches_summary')
 
 
 if __name__ == '__main__':
