@@ -1,0 +1,20 @@
+1) Quitar los primeros tres párrafos
+
+2) Cambiar el párrafo siguiente (este párrafo está ubicado justo antes de unos bullets, rumbo al final):
+
+"La siguiente tabla muestra el resultado de lo que empezó con una PlayStation 
+y unos mundialitos en El Winin. Para entender la tabla, considera los siguientes puntos. 
+Te recomiendo que, después de leer cada punto, intentes entenderlo en la tabla:"
+
+   Por:
+
+"La siguiente tabla muestra los resultados de esas simulaciones. Para entender 
+la tabla considera esto:"
+
+3) Hace falta mi nombre antes de mi información, puede ser solo: Ing. Jaime G. Meléndez
+
+4) De los bullets, quitar los que empiezan con "Por ejemplo"
+
+5) Quitar del apéndice las notas 1 y 2 (solo dejar la nota 3, pero quitar "nota 3")
+
+La cuenta de palabras quedó en 3164 (no tiene que quedarte exactamente igual, te lo digo como referencia)
