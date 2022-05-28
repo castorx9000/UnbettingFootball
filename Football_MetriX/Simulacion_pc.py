@@ -267,13 +267,15 @@ def simulator_multiple_seasons(simulations_number, season, division, matches):
 
 if __name__ == "__main__":
     
-    matches = pd.read_csv('D:\Dropbox\La Cima del Éxito\Futbol\Football_MetriX\df_Euro_Leagues.csv')
-    season = '2019-2020'
-    division = 'E0'
+    matches = pd.read_excel('df_Leagues_2021-2022.xlsx')
+    season = '2021-2022'
+    division = 'N1'
     iterations = 5000
 
     final_table = simulator_multiple_seasons(iterations, season, division, matches)
+
     print(final_table[0])
     print(final_table[1])
-    final_table[0].to_csv(f'D:\Dropbox\La Cima del Éxito\Futbol\Football_MetriX\seasons_simulations\{season}_{division}_performance_{iterations}_iterations.csv')
-    final_table[1].to_csv(f'D:\Dropbox\La Cima del Éxito\Futbol\Football_MetriX\seasons_simulations\{season}_{division}_position_{iterations}_iterations.csv', index=False)
+
+    final_table[1].to_csv(f'{season}_{division}_position_{iterations}_iterations.csv', index=False)
+    final_table[0].to_csv(f'\\season-2021-2022\{season}_{division}_performance_{iterations}_iterations.csv')
