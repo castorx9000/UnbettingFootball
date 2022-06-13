@@ -269,7 +269,7 @@ if __name__ == "__main__":
     
     matches = pd.read_excel('df_Leagues_2021-2022.xlsx')
     season = '2021-2022'
-    division = 'N1'
+    division = 'MX1F'
     iterations = 5000
 
     final_table = simulator_multiple_seasons(iterations, season, division, matches)

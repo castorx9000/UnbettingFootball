@@ -50,7 +50,7 @@ def change_odds_to_probabilities(matches):
 
 def insert_escenarios(matches, metron):
 
-    escenario_list = metron.loc[:,'Escenario'].values.tolist()
+    escenario_list = metron.loc[:,'reference'].values.tolist()
     metron.index = escenario_list
     reference_list = matches['reference'].values.tolist()
     expected_values = []
@@ -65,8 +65,9 @@ def insert_escenarios(matches, metron):
 
         expected_values.append(metron.loc[element,:].values.tolist())
 
-    expected_values = pd.DataFrame(expected_values, columns = ['reference','OddH','OddD','OddA','ProbH','ProbD','ProbA','xFTHG','xFTAG','xHTHG','xHTAG','xHS','xAS','xHST','xAST','xHF','xAF','xHY','xAY','xHR','xAR'])
+    expected_values = pd.DataFrame(expected_values, columns = ['reference','OddH','OddD','OddA','ProbH','ProbD','ProbA','xPHome','xPAway','xGoals','xFTHG','xFTAG','xHTHG','xHTAG','xHS','xAS','xHST','xAST','xHSM','xASM','xHF','xAF','xHY','xAY','xHR','xAR'])
     expected_values = expected_values[['reference','xFTHG','xFTAG','xHTHG','xHTAG','xHS','xAS','xHST','xAST','xHF','xAF','xHY','xAY','xHR','xAR']]
+    print(matches)
     matches = pd.merge(matches, expected_values, on='reference')
 
     matches.drop_duplicates(inplace=True)
@@ -89,9 +90,19 @@ def create_table(matches, teams_list, division):
         rWins, rDraws, rLosses = 0, 0, 0
         Wins, Draws, Losses = 0, 0, 0
         xWins, xDraws, xLosses = 0, 0, 0
+        rHWins, rHDraws, rHLosses = 0, 0, 0
+        HWins, HDraws, HLosses = 0, 0, 0
+        xHWins, xHDraws, xHLosses = 0, 0, 0
+        rAWins, rADraws, rALosses = 0, 0, 0
+        AWins, ADraws, ALosses = 0, 0, 0
+        xAWins, xADraws, xALosses = 0, 0, 0
         GoalsF_Diff, GoalsA_Diff = 0, 0
         rGoalsF, rGoalsA = 0, 0
+        rHGoalsF, rHGoalsA = 0, 0
+        rAGoalsF, rAGoalsA = 0, 0
         GoalsF, xGoalsF, GoalsA, xGoalsA = 0, 0, 0, 0
+        HGoalsF, xHGoalsF, HGoalsA, xHGoalsA = 0, 0, 0, 0
+        AGoalsF, xAGoalsF, AGoalsA, xAGoalsA = 0, 0, 0, 0
         SHGoalsF, xSHGoalsF, SHGoalsA, xSHGoalsA = 0, 0, 0, 0 
         HTGoalsF, xHTGoalsF, HTGoalsA, xHTGoalsA = 0, 0, 0, 0
         rShotsF, rShotsA, rShotsTF, rShotsTA = 0, 0, 0, 0
@@ -114,6 +125,10 @@ def create_table(matches, teams_list, division):
         xHTGoalsF += Totals['xHTHG']
         HTGoalsA += Totals['HTAG']
         xHTGoalsA += Totals['xHTAG']
+        HGoalsF += Totals['FTHG']
+        xHGoalsF += Totals['xFTHG']
+        HGoalsA += Totals['FTAG']
+        xHGoalsA += Totals['xFTAG']
         ShotsF += Totals['HS']
         xShotsF += Totals['xHS']
         ShotsA += Totals['AS']
@@ -144,6 +159,14 @@ def create_table(matches, teams_list, division):
         xWins += Totals['ProbH']
         xDraws += Totals['ProbD']
         xLosses += Totals['ProbA']
+
+        HWins += Record.count('H')
+        HDraws += Record.count('D')
+        HLosses += Record. count('A')
+
+        xHWins += Totals['ProbH']
+        xHDraws += Totals['ProbD']
+        xHLosses += Totals['ProbA']
         
         auxiliar_df = matches[matches['AwayTeam'] == team]
         Totals = auxiliar_df.sum(axis = 0, skipna=True)
@@ -152,6 +175,10 @@ def create_table(matches, teams_list, division):
         xGoalsF += Totals['xFTAG']
         GoalsA += Totals['FTHG']
         xGoalsA += Totals['xFTHG']
+        AGoalsF += Totals['FTAG']
+        xAGoalsF += Totals['xFTAG']
+        AGoalsA += Totals['FTHG']
+        xAGoalsA += Totals['xFTHG']
         HTGoalsF += Totals['HTAG']
         xHTGoalsF += Totals['xHTAG']
         HTGoalsA += Totals['HTHG']
@@ -191,9 +218,25 @@ def create_table(matches, teams_list, division):
         xDraws += Totals['ProbD']
         xLosses += Totals['ProbH']
 
+        AWins += Record.count('A')
+        ADraws += Record.count('D')
+        ALosses += Record. count('H')
+
+        xAWins += Totals['ProbA']
+        xADraws += Totals['ProbD']
+        xALosses += Totals['ProbH']
+
         rWins = Wins / xWins
         rDraws = Draws / xDraws
         rLosses = Losses / xLosses
+
+        rHWins = HWins / xHWins
+        rHDraws = HDraws / xHDraws
+        rHLosses = HLosses / xHLosses
+
+        rAWins = AWins / xAWins
+        rADraws = ADraws / xADraws
+        rALosses = ALosses / xALosses
 
         Games = Wins + Draws + Losses
 
@@ -203,6 +246,12 @@ def create_table(matches, teams_list, division):
 
         rGoalsF = GoalsF / xGoalsF
         rGoalsA = GoalsA / xGoalsA
+
+        rHGoalsF = HGoalsF / xHGoalsF
+        rHGoalsA = HGoalsA / xHGoalsA
+
+        rAGoalsF = AGoalsF / xAGoalsF
+        rAGoalsA = AGoalsA / xAGoalsA
 
         GoalDiff = GoalsF - GoalsA
         xGoalDiff = xGoalsF - xGoalsA
@@ -238,13 +287,24 @@ def create_table(matches, teams_list, division):
             GoalsF_Diff, GoalsA_Diff, 
             rShotsF, rShotsA, rShotsTF, rShotsTA,
             rFouls, rFoulsA, 
-            rYCard, rYCardA, rRCard, rRCardA
+            rYCard, rYCardA, rRCard, rRCardA,
+            rHWins, rHDraws, rHLosses,
+            HWins, HDraws, HLosses,
+            xHWins, xHDraws, xHLosses,
+            rAWins, rADraws, rALosses,
+            AWins, ADraws, ALosses,
+            xAWins, xADraws, xALosses,
+            rHGoalsF, rHGoalsA,
+            rAGoalsF, rAGoalsA,
+            HGoalsF, xHGoalsF, HGoalsA, xHGoalsA,
+            AGoalsF, xAGoalsF, AGoalsA, xAGoalsA
+
             ]
 
         output.append(list)
 
-    final_table = pd.DataFrame(output, columns=['Club','Division','rPoints','Points','xPoints','Matches','rWins','rDraws','rLosses','Wins', 'Draws', 'Losses', 'xWins', 'xDraws', 'xLosses','GoalDiff', 'xGoalDiff','rGoalsF','rGoalsA', 'GoalsF', 'xGoalsF', 'GoalsA', 'xGoalsA','SHGoalsF','xSHGoalsF','SHGoalsA','xSHGoalsA','HTGoalsF', 'xHTGoalsF', 'HTGoalsA', 'xHTGoalsA','ShotsF', 'xShotsF', 'ShotsA', 'xShotsA','ShotsTF', 'xShotsTF', 'ShotsTA', 'xShotsTA','Fouls', 'xFouls', 'FoulsA', 'xFoulsA','YCard', 'xYCard', 'YCardA', 'xYCardA','RCard', 'xRCard', 'RCardA', 'xRCardA', 'GoalsF_Diff', 'GoalsA_Diff', 'rShotsF', 'rShotsA', 'rShotsTF', 'rShotsTA', 'rFouls', 'rFoulsA', 'rYCard', 'rYCardA', 'rRCard', 'rRCardA'])
-    final_table = final_table[['Club','Division','rPoints','Points','xPoints','Matches','rWins','rDraws','rLosses','Wins','Draws','Losses','xWins','xDraws','xLosses','GoalDiff','xGoalDiff','GoalsF_Diff','GoalsA_Diff','rGoalsF','rGoalsA','GoalsF','xGoalsF','GoalsA','xGoalsA','SHGoalsF','xSHGoalsF','SHGoalsA','xSHGoalsA','HTGoalsF','xHTGoalsF','HTGoalsA','xHTGoalsA','rShotsF','ShotsF','xShotsF','rShotsA','ShotsA','xShotsA','rShotsTF','ShotsTF','xShotsTF','rShotsTA','ShotsTA','xShotsTA','rFouls','Fouls','xFouls','rFoulsA','FoulsA','xFoulsA','rYCard','YCard','xYCard','rYCardA','YCardA','xYCardA','rRCard','RCard','xRCard','rRCardA','RCardA','xRCardA']]
+    final_table = pd.DataFrame(output, columns=['Club','Division','rPoints','Points','xPoints','Matches','rWins','rDraws','rLosses','Wins', 'Draws', 'Losses', 'xWins', 'xDraws', 'xLosses','GoalDiff', 'xGoalDiff','rGoalsF','rGoalsA', 'GoalsF', 'xGoalsF', 'GoalsA', 'xGoalsA','SHGoalsF','xSHGoalsF','SHGoalsA','xSHGoalsA','HTGoalsF', 'xHTGoalsF', 'HTGoalsA', 'xHTGoalsA','ShotsF', 'xShotsF', 'ShotsA', 'xShotsA','ShotsTF', 'xShotsTF', 'ShotsTA', 'xShotsTA','Fouls', 'xFouls', 'FoulsA', 'xFoulsA','YCard', 'xYCard', 'YCardA', 'xYCardA','RCard', 'xRCard', 'RCardA', 'xRCardA', 'GoalsF_Diff', 'GoalsA_Diff', 'rShotsF', 'rShotsA', 'rShotsTF', 'rShotsTA', 'rFouls', 'rFoulsA', 'rYCard', 'rYCardA', 'rRCard', 'rRCardA','rHWins','rHDraws','rHLosses','HWins','HDraws','HLosses','xHWins','xHDraws','xHLosses','rAWins','rADraws','rALosses','AWins','ADraws','ALosses','xAWins','xADraws','xALosses','rHGoalsF','rHGoalsA','rAGoalsF','rAGoalsA','HGoalsF','xHGoalsF','HGoalsA','xHGoalsA','AGoalsF','xAGoalsF','AGoalsA','xAGoalsA'])
+    final_table = final_table[['Club','Division','rPoints','Points','xPoints','Matches','rWins','rDraws','rLosses','Wins','Draws','Losses','xWins','xDraws','xLosses','GoalDiff','xGoalDiff','GoalsF_Diff','GoalsA_Diff','rGoalsF','rGoalsA','GoalsF','xGoalsF','GoalsA','xGoalsA','SHGoalsF','xSHGoalsF','SHGoalsA','xSHGoalsA','HTGoalsF','xHTGoalsF','HTGoalsA','xHTGoalsA','rShotsF','ShotsF','xShotsF','rShotsA','ShotsA','xShotsA','rShotsTF','ShotsTF','xShotsTF','rShotsTA','ShotsTA','xShotsTA','rFouls','Fouls','xFouls','rFoulsA','FoulsA','xFoulsA','rYCard','YCard','xYCard','rYCardA','YCardA','xYCardA','rRCard','RCard','xRCard','rRCardA','RCardA','xRCardA','rHWins','rHDraws','rHLosses','HWins','HDraws','HLosses','xHWins','xHDraws','xHLosses','rAWins','rADraws','rALosses','AWins','ADraws','ALosses','xAWins','xADraws','xALosses','rHGoalsF','rHGoalsA','rAGoalsF','rAGoalsA','HGoalsF','xHGoalsF','HGoalsA','xHGoalsA','AGoalsF','xAGoalsF','AGoalsA','xAGoalsA']]
 
     return final_table
               
@@ -268,16 +328,16 @@ def teams_performance(matches, metron, divisions_list):
         print(division, len(matches_division), len(final_table))
         matches_with_format = matches_with_format.append(matches_division)
         
-    #final_table.to_excel(f'D:\Dropbox\La Cima del Éxito\Futbol\\articulos\\2012-2021_All_UEFA.xlsx',encoding='utf-8',index=True)
-    matches_with_format.to_excel(f'D:\Dropbox\La Cima del Éxito\Futbol\\articulos\matches_2013-2021_All_UEFA_FORMAT.xlsx',encoding='utf-8',index=True)
+    final_table.to_excel(f'Liga_MX_2020-2022.xlsx',encoding='utf-8',index=True)
+    #matches_with_format.to_excel(f'Prueba_nuevas_Variables.xlsx',encoding='utf-8',index=True)
 
     return True
 
 
 if __name__ == '__main__':
 
-    metron = pd.read_excel('D:\Dropbox\La Cima del Éxito\Futbol\\reference_system_means.xlsx')
-    matches = pd.read_excel('D:\Dropbox\La Cima del Éxito\Futbol\\articulos\matches_2013-2021_All_UEFA.xlsx')
+    metron = pd.read_excel('metron.xlsx')
+    matches = pd.read_excel('LigaMX_2020-2022_regular_season.xlsx')
     
     teams_list = matches['HomeTeam'].tolist()
     teams_list = list(set(teams_list))
