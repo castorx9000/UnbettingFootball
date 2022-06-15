@@ -57,20 +57,16 @@ def insert_escenarios(matches, metron):
 
     for element in reference_list:
         
-        if element <= 0.08:
-            element = 0.08
-        
-        if element >= 0.92:
-            element = 0.92
-
         expected_values.append(metron.loc[element,:].values.tolist())
 
     expected_values = pd.DataFrame(expected_values, columns = ['reference','OddH','OddD','OddA','ProbH','ProbD','ProbA','xPHome','xPAway','xGoals','xFTHG','xFTAG','xHTHG','xHTAG','xHS','xAS','xHST','xAST','xHSM','xASM','xHF','xAF','xHY','xAY','xHR','xAR'])
     expected_values = expected_values[['reference','xFTHG','xFTAG','xHTHG','xHTAG','xHS','xAS','xHST','xAST','xHF','xAF','xHY','xAY','xHR','xAR']]
     print(matches)
+    matches.to_excel(f'test.xlsx',encoding='utf-8',index=True)
     matches = pd.merge(matches, expected_values, on='reference')
 
     matches.drop_duplicates(inplace=True)
+    print(matches)
     
     return matches
 
@@ -316,7 +312,6 @@ def teams_performance(matches, metron, divisions_list):
 
     for division in divisions_list:
 
-
         matches_division = matches[matches['Div'] == division]
         matches_division = format_matches(matches_division, metron)
 
@@ -328,7 +323,7 @@ def teams_performance(matches, metron, divisions_list):
         print(division, len(matches_division), len(final_table))
         matches_with_format = matches_with_format.append(matches_division)
         
-    final_table.to_excel(f'Liga_MX_2020-2022.xlsx',encoding='utf-8',index=True)
+    final_table.to_excel(f'{file_name}.xlsx',encoding='utf-8',index=True)
     #matches_with_format.to_excel(f'Prueba_nuevas_Variables.xlsx',encoding='utf-8',index=True)
 
     return True
@@ -336,8 +331,10 @@ def teams_performance(matches, metron, divisions_list):
 
 if __name__ == '__main__':
 
+    file_name = 'WCQ_CONCACAF_2022_resumen'
+
     metron = pd.read_excel('metron.xlsx')
-    matches = pd.read_excel('LigaMX_2020-2022_regular_season.xlsx')
+    matches = pd.read_excel('WCQ2022_CONCACAF_Final.xlsx')
     
     teams_list = matches['HomeTeam'].tolist()
     teams_list = list(set(teams_list))
@@ -346,14 +343,3 @@ if __name__ == '__main__':
     divisions_list = list(set(divisions_list))
 
     teams_performance(matches, metron, divisions_list)
-    #matches = format_matches(matches, metron)
-    #matches.to_excel(f'D:\Dropbox\La Cima del Éxito\Futbol\\articulos\matches_2013-2021_All_UEFA_FORMAT.xlsx',encoding='utf-8',index=True)
-
-    #date = '11-12-2021'
-    #season = '2013-2021'
-    #competition = 'All_UEFA'
-
-    #matches = format_matches(matches, metron)
-    
-    #final_table = create_table(matches, teams_list)
-    #final_table.to_csv(f'D:\Dropbox\La Cima del Éxito\Futbol\\articulos\{season}_{competition}_{date}.csv',encoding='utf-8',index=True)
